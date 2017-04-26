@@ -1,0 +1,15 @@
+html, body{
+    width: 100px;
+    font-weight:bold;
+    font-family: "verdana";
+    background-color: #DDDDDD;
+}
+
+.convUnit{
+    margin: 3% auto;
+    width: 50px;
+    padding: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: center;
+}

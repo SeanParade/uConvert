@@ -1,0 +1,25 @@
+{
+    "background" : {
+	"scripts" : ["unconvert_background.js"]
+    },
+    "manifest_version" : 2,
+    "name" : "uConvert",
+    "version" : "1.0",
+
+    "description" : "Allows you to right-click on an input field in merchantOS and multiply the amount in the field by a predefined amount.",
+    "homepage_url" : "https://github.com/seanparade/uConvert"
+    "icons" : {
+	"48" : "icons/uconvert-48.png"
+    },
+    
+    "permissions" : [
+	"activeTab",
+	"storage"
+    ],
+
+    "browser_action" : {
+	"default_icon" : "icons/uconvert-32.png",
+	"default_title" : "uConvert",
+	"default_popup" : "popup/setting.html"
+    },
+}
