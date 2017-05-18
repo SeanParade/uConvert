@@ -14,12 +14,12 @@
     
     "permissions" : [
 	"activeTab",
-	"contextMenus",
-	
+	"storage"
     ],
 
     "browser_action" : {
 	"default_icon" : "icons/uconvert-32.png",
 	"default_title" : "uConvert",
+	"default_popup" : "popup/uconvert_settings.html"
     },
 }

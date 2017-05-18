@@ -1,0 +1,11 @@
+var dt = new Date();
+var currentTime = dt.toLocaleDateString('en-GB') + " "
+    + dt.getHours() + ":" + dt.getMinutes();
+
+document.addEventListener("click",function(event){
+    if(event.ctrlKey){
+	document.activeElement.value += " " + currentTime;
+    }
+});
+
+document.write(currentTime);
