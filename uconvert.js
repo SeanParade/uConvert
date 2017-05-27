@@ -10,15 +10,14 @@ else
     currentTime += dt.getMinutes();
 
 console.log(currentTime);
+
 //error logging on creation
-function onCreated(n) {
-    if (browser.runtime.lastError) {
+function onCreated(n)
+{
+    if (browser.runtime.lastError) 
 	console.log(`Error: ${browser.runtime.lastError}`);
-    }
     else
-    {
-	console.log(n + " was created.");
-    }
+    	console.log(n + " was created.");
 }
 
 //timestamp menu option 
@@ -34,6 +33,7 @@ browser.contextMenus.create({
     title:"USD -> CAD",
     contexts:["all"]
     }, onCreated);
+
 //click listener
 
 /*
