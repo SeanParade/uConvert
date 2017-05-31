@@ -51,15 +51,21 @@ browser.contextMenus.create({
 */
 //selected object var
 browser.contextMenus.onClicked.addListener(function(info, tab) {
+    var selectedInput;
+    if (document.activeElement.tagName != "BODY" && info.editable)
+	selectedInput = document.activeElement;
+		
     console.log("info.menuItem = " + info.menuItemId);
     switch (info.menuItemId) {
     case "timeStamp":
 	if (info.editable)
-	    document.getElementById("listing_description").value = " " + currentTime;
+	    selectedInput.value = " " + currentTime;
 
 	if(debug)
-	    console.log("timestamp clicked \n " +document.activeElement.tagName+"\n editable: "+info.editable);
-	console.log(JSON.stringify(document.activeElement));
+	    console.log("timestamp clicked \n Active Element: " + document.activeElement.tagName + 
+			"\n selectedInput:" + selectedInput.tagName + 
+			"\n editable: "+ info.editable);
+	console.log(JSON.stringify(document.activeElement)+"\n"+JSON.stringify(selectedInput));
 	break;
     
     case "fieldConvert":
