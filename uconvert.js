@@ -42,39 +42,35 @@ browser.contextMenus.create({
     contexts:["all"]
     }, onCreated);
 
+// link: https://github.com/mdn/webextensions-examples/tree/master/context-menu-demo
 //click listener
-
-/*
-* Not sure if working. A lot of this is from the mozilla context menu demo
-* link: https://github.com/mdn/webextensions-examples/tree/master/context-menu-demo
-* Not super happy using switch case; may switch out (haha, :'| )
-*/
-//selected object var
+var selectedInput = document.activeElement;
+//context menu item click listener
 browser.contextMenus.onClicked.addListener(function(info, tab) {
-    var selectedInput;
     if (document.activeElement.tagName != "BODY" && info.editable)
-	selectedInput = document.activeElement;
+	selectedInput = this;
 		
     console.log("info.menuItem = " + info.menuItemId);
+// info is event object;
+// menuItemId is menu itme clicked
     switch (info.menuItemId) {
-    case "timeStamp":
-	if (info.editable)
-	    selectedInput.value = " " + currentTime;
-
-	if(debug)
-	    console.log("timestamp clicked \n Active Element: " + document.activeElement.tagName + 
+// "Timestamp" clicked
+	    case "timeStamp":
+		if (info.editable)
+			selectedInput.value = " " + currentTime;
+		if (debug)
+			console.log("timestamp clicked \n Active Element: " +
+			document.activeElement.tagName + 
 			"\n selectedInput:" + selectedInput.tagName + 
-			"\n editable: "+ info.editable);
-	console.log(JSON.stringify(document.activeElement)+"\n"+JSON.stringify(selectedInput));
-	break;
-    
-    case "fieldConvert":
-	if(debug)
-	console.log("field convert clicked");
-	break;
+			"\n editable: " + info.editable);
+		break;
+// "USD -> CAD" clicked    
+	   case "fieldConvert":
+		if(debug)
+		    console.log("field convert clicked");
+		break;
     }
 });
 
-document.addEventListener("click",function(){console.log("test passed")});
 
 
