@@ -1,21 +1,29 @@
+// debug mode turns on console logging for each item
+var debug = true;
+if (debug)
+    console.log("uConvert Loaded - Debugging enabled");
 //date object with a pretty print in dd/mm/yyyy
 var dt = new Date();
 var currentTime = dt.toLocaleDateString('en-GB') + " "
     + dt.getHours() + ":";
-if(dt.getMinutes()<10)
+if (dt.getMinutes() < 10)
     //add 0 to a string to avoid "12:3" instead of "12:03"
     //I'm sure there is a better way to do this using date formatting but w/e I'll save it for ver.2
     currentTime += "0" + dt.getMinutes();
 else
     currentTime += dt.getMinutes();
 
-console.log(currentTime);
+if (debug)
+    console.log(currentTime);
 
 //error logging on creation
 function onCreated(n)
 {
+    if (debug)
+	console.log("onCreated triggered");
+
     if (browser.runtime.lastError) 
-	console.log(`Error: ${browser.runtime.lastError}`);
+	console.log('Error: ${browser.runtime.lastError}');
     else
     	console.log(n + " was created.");
 }
@@ -41,25 +49,23 @@ browser.contextMenus.create({
 * link: https://github.com/mdn/webextensions-examples/tree/master/context-menu-demo
 * Not super happy using switch case; may switch out (haha, :'| )
 */
-
 //selected object var
-var curElement = document.activeElement;
-
-browser.contextMenus.onClicked.addListener(function(info, tab) {
-    console.log("info.menuItem = " + info.menuItem);
-    switch (info.menuItemId) {
+browser.contextMenus.onClicked.addListener(function(info, tab){
+    console.log("info.menuItem = " + info.menuItemId);
+    switch (info.menuItemId){
     case "timeStamp":
-/*	if(curElement.tagName == "INPUT" ||curElement.tagName == "TEXTAREA")
-	{
-	    curElement.value += " " + currentTime;
-	}
-*/
-	console.log("timestamp clicked");
+	if (info.editable)
+	    document.getElementById("listing_description").value = " " + currentTime;
+	if(debug)
+	    console.log("timestamp clicked \n " + document.activeElement.tagName + "\n editable: " + info.editable);
 	break;
+    
     case "fieldConvert":
+	if(debug)
 	console.log("field convert clicked");
 	break;
     }
 });
+
 
 
