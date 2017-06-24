@@ -1,5 +1,5 @@
 // debug mode turns on console logging for each item
-var debug = true;
+var debug=true;
 if (debug)
     console.log("uConvert Loaded - Debugging enabled");
 //date object with a pretty print in dd/mm/yyyy
@@ -42,28 +42,33 @@ browser.contextMenus.create({
     contexts:["all"]
     }, onCreated);
 
+// link: https://github.com/mdn/webextensions-examples/tree/master/context-menu-demo
 //click listener
-
-/*
-* Not sure if working. A lot of this is from the mozilla context menu demo
-* link: https://github.com/mdn/webextensions-examples/tree/master/context-menu-demo
-* Not super happy using switch case; may switch out (haha, :'| )
-*/
-//selected object var
-browser.contextMenus.onClicked.addListener(function(info, tab){
+var selectedInput = document.activeElement;
+//context menu item click listener
+browser.contextMenus.onClicked.addListener(function(info, tab) {
+    if (document.activeElement.tagName != "BODY" && info.editable)
+	selectedInput = this;
+		
     console.log("info.menuItem = " + info.menuItemId);
-    switch (info.menuItemId){
-    case "timeStamp":
-	if (info.editable)
-	    document.getElementById("listing_description").value = " " + currentTime;
-	if(debug)
-	    console.log("timestamp clicked \n " + document.activeElement.tagName + "\n editable: " + info.editable);
-	break;
-    
-    case "fieldConvert":
-	if(debug)
-	console.log("field convert clicked");
-	break;
+// info is event object;
+// menuItemId is menu itme clicked
+    switch (info.menuItemId) {
+// "Timestamp" clicked
+	    case "timeStamp":
+		if (info.editable)
+			selectedInput.value = " " + currentTime;
+		if (debug)
+			console.log("timestamp clicked \n Active Element: " +
+			document.activeElement.tagName + 
+			"\n selectedInput:" + selectedInput.tagName + 
+			"\n editable: " + info.editable);
+		break;
+// "USD -> CAD" clicked    
+	   case "fieldConvert":
+		if(debug)
+		    console.log("field convert clicked");
+		break;
     }
 });
 
